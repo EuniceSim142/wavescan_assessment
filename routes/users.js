@@ -3,13 +3,11 @@ var router = express.Router();
 
 const User = require("../models/user");
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  // res.send('respond with a resource');
-  console.log("running")
-  User.findAll().then(users => res.json(users));
-});
+const authenticate = require("./auth");
+const { getUser, updateUser, deleteUser,  } = require('../controllers/usersController');
 
-
+router.get('/getUser', authenticate, getUser);
+router.put('/updateUser', authenticate, updateUser);
+router.delete('/deleteUser', authenticate, deleteUser);
 
 module.exports = router;
